@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.fragment.navArgs
 import com.shady.fragmentslesson.R
 import com.shady.fragmentslesson.data.model.User
 
@@ -32,24 +33,21 @@ class Details : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-       if (arguments != null){
-           requireArguments().getParcelable<User>("userKey").let{
+
+        val args: DetailsArgs by navArgs()
+        val user = args.userKey
+
+        //arguments?.getParcelable<User>("userKey")?.let{
                idTextView = view.findViewById(R.id.tvIdDetails)
                fNameTextView = view.findViewById(R.id.tvfName)
                lNameTextView = view.findViewById(R.id.tvlName)
                scoreTextView = view.findViewById(R.id.tvScore)
 
-               idTextView.text = "User ID: ${it?.id}"
-               fNameTextView.text = "First Name: ${it?.fName}"
-               lNameTextView.text = "Last Name: ${it?.lName}"
-               scoreTextView.text = "User Score: ${it?.score}"
-           }
-
-
-
-
-       }
-
+               idTextView.text = "User ID: ${user.id}"
+               fNameTextView.text = "First Name: ${user.fName}"
+               lNameTextView.text = "Last Name: ${user.lName}"
+               scoreTextView.text = "User Score: ${user.score}"
+         //  }
     }
 
 }

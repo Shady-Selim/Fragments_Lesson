@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.shady.fragmentslesson.R
 import com.shady.fragmentslesson.data.model.User
@@ -22,7 +25,10 @@ class UserRVAdapter(private val fillUsers: List<User>,private val isLandscape: B
         holder.idTextView.text = user.id.toString()
         holder.nameTextView.text = "${user.fName}  ${user.lName}"
         holder.itemView.setOnClickListener {view ->
-            val activity = view.context as AppCompatActivity
+            val action = MainFragmentDirections.actionMainFragmentToDetails(user)
+            view.findNavController().navigate(action)
+            //val action = MainFragmentD
+            /*val activity = view.context as AppCompatActivity
             val bundle = Bundle()
             bundle.putParcelable("userKey",user)
             val detailView = if(isLandscape) R.id.flDetails else R.id.container
@@ -31,7 +37,7 @@ class UserRVAdapter(private val fillUsers: List<User>,private val isLandscape: B
             activity.supportFragmentManager.beginTransaction()
                 .replace(detailView , fragment)
                 .addToBackStack("details")
-                .commit()
+                .commit()*/
         }
     }
 
